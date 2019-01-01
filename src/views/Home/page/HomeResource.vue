@@ -8,23 +8,23 @@
             </div>
             <div class="jx-flex1" style="overflow-y: auto">
                 <el-menu
-                        default-active="2"
+                        @select="selectMenu"
+                        default-active="1"
                         class="el-menu-vertical-demo">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>基础设置</span>
                         </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="/resource/tree-set">分类树设置</el-menu-item>
+                        <el-menu-item index="/resource/auth">权限设置</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>资源上传维护</span>
                         </template>
-                        <el-menu-item index="1-1">学籍管理</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="/resource/upload">上传资源</el-menu-item>
                     </el-submenu>
                     <el-submenu index="3">
                         <template slot="title">
@@ -71,7 +71,7 @@
 
         </div>
         <div class="jx-flex1">
-
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -85,8 +85,9 @@
             }
         },
         methods: {
-            handleChange(val) {
-                console.log(val);
+            selectMenu(val) {
+
+                this.$router.push(val)
             },
             sysClick(val) {
                 console.log(val);

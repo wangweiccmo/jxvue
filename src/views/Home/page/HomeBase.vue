@@ -3,7 +3,7 @@
         <div class="hbase-left jx-box-shadow jx-box-column">
             <div style="height: 90px;text-align: center;padding-top: 10px">
                 <i class="iconfont icon-xuejiguanli" style="font-size: 50px;color: #3a8ee6"></i><br>
-                <span class="jx-font-14">学籍管理</span>
+                <span class="jx-font-14">学生管理</span>
 
             </div>
             <!--<div style="height: 60px;padding-top: 10px;">-->
@@ -25,7 +25,7 @@
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>报道注册</span>
+                            <span>学籍管理</span>
                         </template>
                         <el-menu-item index="/base/student-reg">学生注册</el-menu-item>
                         <el-menu-item index="/base/student-report">学生报道</el-menu-item>
@@ -33,43 +33,12 @@
                     <el-submenu index="2">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>学籍管理</span>
+                            <span>就业管理</span>
                         </template>
                         <el-menu-item index="1-1">学籍管理</el-menu-item>
                         <el-menu-item index="1-2">学生注册</el-menu-item>
                     </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>学籍异动</span>
-                        </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>数据采集</span>
-                        </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>统计</span>
-                        </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>学籍卡管理</span>
-                        </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
-                    </el-submenu>
+
                 </el-menu>
             </div>
         </div>

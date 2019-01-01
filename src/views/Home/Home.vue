@@ -15,9 +15,11 @@
                         @select="handleSelect"
                        >
                     <el-menu-item index="1">首页</el-menu-item>
-                    <el-menu-item index="2">基础应用</el-menu-item>
-                    <el-menu-item index="3">教学资源</el-menu-item>
-                    <el-menu-item index="4">数据中心</el-menu-item>
+                    <el-menu-item index="2">学生管理</el-menu-item>
+                    <el-menu-item index="3">教职工管理</el-menu-item>
+                    <!--<el-menu-item index="4">机构管理</el-menu-item>-->
+                    <el-menu-item index="5">教学资源</el-menu-item>
+                    <el-menu-item index="6">数据中心</el-menu-item>
                 </el-menu>
             </div>
         </div>
@@ -63,10 +65,10 @@
                     case '2':
                         this.go('/base')
                         break;
-                    case '3':
+                    case '5':
                         this.go('/resource')
                         break;
-                    case '4':
+                    case '6':
                         this.go('/dataCenter')
                         break;
                     default:

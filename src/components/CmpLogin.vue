@@ -32,8 +32,8 @@
 
 <script>
     import rulesMixin from '../components/mixin/rulesMixin';
-    import {USER_LOGIN} from '../api/api_user';
-    import {setLocal,getLocal,rmLocal} from '../api/local'
+    import {USER_LOGIN} from '_api/api_user';
+    import {setLocal,getLocal,rmLocal} from '_api/local'
 
     export default {
         name: "CmpLogin",

@@ -1,5 +1,5 @@
 <template>
-    <div class="fu jx-l jx-box-column" >
+    <div class="fu jx-l" style="text-align: right;padding: 0 10px">
         <div class="jx-breadcrumb">
             <div class="">
                 当前位置：
@@ -10,29 +10,24 @@
                 </el-breadcrumb>
             </div>
         </div>
-        <div style="background-color: yellow;" class="jx-flex1">
-            <CmpTree :bindId="bindId" @handleNodeClick="handleNodeClick">
-
-            </CmpTree>
-
-        </div>
+        权限设置
     </div>
 </template>
 
 <script>
-    import CmpTree from '_cmp/CmpTree';
+
     export default {
         name: "HomeBaseHome",
-        components: {CmpTree},
+        components: {
+        },
         data() {
             return {
-                bindId:2
+
             }
         },
         methods: {
-            handleNodeClick(data,bindId){
-                console.log(data,bindId);
-            }
+
+
         }
     }
 </script>

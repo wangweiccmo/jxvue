@@ -10,7 +10,6 @@
 
         <el-tree style="margin-top: 10px"
                  :data="data"
-                 :props="defaultProps"
                  default-expand-all
                  :filter-node-method="filterNode"
                  ref="tree2"
@@ -19,55 +18,20 @@
 </template>
 
 <script>
+    import * as TREE_API from '_api/api_tree';
 
     export default {
         name: "CmpTree",
+        props:{
+            bindId:{
+                type: Number,
+                default: 1
+            }
+        },
         data() {
             return {
                 filterText: '',
-                defaultProps: {
-                    children: 'children',
-                    label: 'label'
-                },
-                data: [{
-                    label: '一级 1',
-                    children: [{
-                        label: '二级 1-1',
-                        children: [{
-                            label: '三级 1-1-1'
-                        }]
-                    }]
-                }, {
-                    label: '一级 2',
-                    children: [{
-                        label: '二级 2-1',
-                        children: [{
-                            label: '三级 2-1-1'
-                        }]
-                    }, {
-                        label: '二级 2-2',
-                        children: [{
-                            label: '三级 2-2-1'
-                        }]
-                    }]
-                }, {
-                    label: '一级 3',
-                    children: [{
-                        label: '二级 3-1',
-                        children: [{
-                            label: '三级 3-1-1'
-                        }]
-                    }, {
-                        label: '二级 3-2',
-                        children: [{
-                            label: '三级 3-2-1'
-                        }]
-                    }]
-                }],
-                defaultProps: {
-                    children: 'children',
-                    label: 'label'
-                }
+                data: []
             };
 
         },
@@ -76,13 +40,28 @@
                 this.$refs.tree2.filter(val);
             }
         },
+        mounted(){
+            this.getTreeByBindId();
+        },
         methods: {
+            getTreeByBindId(){
+                let params = {bindId:this.bindId};
+                console.log("params:",params);
+                this.$http.post(TREE_API.selectByBindId,params,this).then((res)=>{
+                    if(res.data){
+                        this.selectTree = res.data;
+                        this.data = JSON.parse(this.selectTree.map);
+                        console.log(this.data);
+                    }
+
+                })
+            },
             filterNode(value, data) {
                 if (!value) return true;
                 return data.label.indexOf(value) !== -1;
             },
             handleNodeClick(data) {
-                console.log(data);
+                this.$emit('handleNodeClick',data,this.bindId);
             }
         }
     }

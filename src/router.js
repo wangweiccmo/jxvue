@@ -22,6 +22,18 @@ const HomeBaseStudentReport = () => import(/* webpackChunkName: "group-enrollmen
 // 首页-资源管理
 const HomeResource = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource.vue');
 
+// 首页-资源管理-首页
+const ResourceHome = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/Home.vue');
+
+// 首页-资源管理-树设置
+const ResourceTreeSet = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceTreeSet.vue');
+
+// 首页-资源管理-权限设置
+const ResourceAuth = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceAuth.vue');
+
+// 首页-资源管理-上传资源
+const ResourceUpload = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceUpload.vue');
+
 // 首页-数据中心
 const DataCenter = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter.vue');
 // 首页-数据中心-首页
@@ -39,7 +51,33 @@ export default new Router({
             component: Home,
             children: [
                 {path: '', name: [{name: '首页', path: '/'}], component: HomeIndex},
-                {path: 'resource', name: [{name: '教学资源', path: '/resource'}], component: HomeResource},
+                {
+                    path: 'resource',
+                    name: [{name: '教学资源', path: '/resource'}],
+                    component: HomeResource,
+                    children: [
+                        {
+                            path: '',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '首页', path: '/resource'}],
+                            component: ResourceHome
+                        },
+                        {
+                            path: 'tree-set',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '分类设置', path: '/resource/tree-set'}],
+                            component: ResourceTreeSet
+                        },
+                        {
+                            path: 'auth',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '分类设置', path: '/resource/auth'}],
+                            component: ResourceAuth
+                        },
+                        {
+                            path: 'upload',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '上传资源', path: '/resource/upload'}],
+                            component: ResourceUpload
+                        }
+                    ]
+                },
                 {
                     path: 'base',
                     name: [{name: '基础应用', path: '/base'}],
