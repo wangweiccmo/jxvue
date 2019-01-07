@@ -20,30 +20,31 @@
                     <el-form :inline="true" size="mini" :model="searchObj" class="demo-form-inline"
                              style="margin-top: 30px">
                         <el-form-item label-width="80px" label="资源标题">
-                            <el-input style="width: 193px" v-model="searchObj.user" placeholder="资源标题"></el-input>
+                            <el-input style="width: 193px" v-model="searchObj.title" placeholder="资源标题"></el-input>
                         </el-form-item>
                         <el-form-item label-width="80px" label="资源类型">
-                            <el-select v-model="searchObj.region" placeholder="资源类型">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
+                            <el-select v-model="searchObj.resourceType" placeholder="资源类型">
+                                <el-option v-for="n in dict.resourceType" :key="n.id" :label="n.dictValue" :value="n.dictKey">
+                                </el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label-width="80px" label="资源标准">
-                            <el-select v-model="searchObj.region" placeholder="资源标准">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
+                            <el-select v-model="searchObj.resourceStandard" placeholder="资源类型">
+                                <el-option v-for="n in dict.resourceStandard" :key="n.id" :label="n.dictValue" :value="n.dictKey">
+                                </el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label-width="80px" label="学科">
-                            <el-select v-model="searchObj.region" placeholder="学科">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
-                            </el-select>
+                            <el-cascader
+                                    :options="subjects"
+                                    :props="{label:'name',value:'code'}"
+                                    v-model="searchObj.subject">
+                            </el-cascader>
                         </el-form-item>
                         <el-form-item label-width="80px" label="审核状态">
-                            <el-select v-model="searchObj.region" placeholder="审核状态">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
+                            <el-select v-model="searchObj.auditState" placeholder="审核状态">
+                                <el-option v-for="n in dict.auditState" :key="n.id" :label="n.dictValue" :value="n.dictKey">
+                                </el-option>
                             </el-select>
                             <el-button type="primary" style="margin: 0 50px" @click="search">查询</el-button>
                         </el-form-item>
@@ -51,7 +52,7 @@
                     </el-form>
                 </div>
                 <el-row style="padding: 10px">
-                    <el-button size="mini" type="primary">上传文件</el-button>
+                    <el-button size="mini" type="primary" @click="uploadFile">上传文件</el-button>
                     <el-button size="mini" type="primary">excel批量添加</el-button>
                     <el-button size="mini" type="primary">模板下载</el-button>
                     <el-button size="mini" type="danger">批量删除</el-button>
@@ -150,7 +151,7 @@
                 </el-row>
             </div>
         </div>
-        <UploadResourceDialog>
+        <UploadResourceDialog v-if="uploadResourceDialogShow">
 
         </UploadResourceDialog>
 
@@ -160,20 +161,50 @@
 <script>
     import CmpTree from '_cmp/CmpTree';
     import UploadResourceDialog from '_cmp/dialog/UploadResourceDialog';
+    import * as DICT_API from '_api/api_dict';
+    import * as SUBJECT_API from '_api/api_subject';
 
     export default {
         name: "HomeBaseHome",
         components: {CmpTree,UploadResourceDialog},
         data() {
             return {
-                searchObj: {},
+                uploadResourceDialogShow:false,
+                subjects: [],
+                searchObj: {
+                    subject:[]
+                },
                 bindId: 2,
                 currentPage: 1,
                 total:10,
-                tableData:[]
+                tableData:[],
+                dict:{
+                    resourceType:[],
+                    resourceStandard:[],
+                    auditState:[]
+                }
             }
         },
+        mounted(){
+            this.init();
+        },
         methods: {
+            init(){
+                let params = {
+                    types:[
+                        'resourceType',
+                        'resourceStandard',
+                        'auditState'
+                    ]
+                };
+                this.$http.post(DICT_API.selectByTypes,params,this).then((res)=>{
+                   this.dict = res.data;
+                })
+                // 获取学科数组
+                this.$http.post(SUBJECT_API.selectAll,null,this).then((res)=>{
+                    this.subjects = res.data;
+                })
+            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -187,7 +218,10 @@
                 console.log(data, bindId);
             },
             search(){
-
+                console.log(this.searchObj);
+            },
+            uploadFile(){
+                this.uploadResourceDialogShow = true;
             }
         }
     }
