@@ -162,6 +162,13 @@ a:hover {
     margin-left: 0px !important;
 }
 
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+    background-color: #66b1ff;
+    color: white;
+}
+.el-dialog__body{
+    padding: 0 20px 10px 20px;
+}
 #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

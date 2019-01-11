@@ -10,6 +10,8 @@
 
         <el-tree style="margin-top: 10px"
                  :data="data"
+                 node-key="id"
+                 highlight-current
                  default-expand-all
                  :filter-node-method="filterNode"
                  ref="tree2"
@@ -52,6 +54,11 @@
                         this.selectTree = res.data;
                         this.data = JSON.parse(this.selectTree.map);
                         console.log(this.data);
+                        let firstNode = this.data[0];
+                        this.handleNodeClick(this.data[0],this.bindId);
+                        this.$nextTick(()=>{
+                            this.$refs.tree2.setCurrentKey(firstNode);
+                        })
                     }
 
                 })
@@ -61,7 +68,36 @@
                 return data.label.indexOf(value) !== -1;
             },
             handleNodeClick(data) {
-                this.$emit('handleNodeClick',data,this.bindId);
+                // 获取map文字
+                let ids = data.id.split('-');
+                let map = '';
+                if(ids && ids.length){
+                    let index = 0;
+                    let maxIndex = ids.length;
+                    let getMap=(list)=>{
+                        if(index < maxIndex){
+                            let id = ids[index];
+                            let keyIndex = parseInt(id) - 1;
+                            let selectNode = list[keyIndex];
+                            index = index+1;
+                            if(selectNode){
+                                if(!map){
+                                    map = selectNode.label;
+                                }else{
+                                    map = map + " > " + selectNode.label;
+                                }
+                                if(selectNode.children && selectNode.children.length){
+                                    getMap(selectNode.children);
+                                }
+                            }
+
+                        }
+
+                    }
+                    getMap(this.data);
+                }
+                data.mapStr = map;
+                this.$emit('handleNodeClick',data,this.bindId,map);
             }
         }
     }

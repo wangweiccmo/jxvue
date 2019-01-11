@@ -16,6 +16,7 @@
 
             </CmpTree>
             <div class="jx-flex1 jx-box-column">
+
                 <div>
                     <el-form :inline="true" size="mini" :model="searchObj" class="demo-form-inline"
                              style="margin-top: 30px">
@@ -71,58 +72,48 @@
                                 width="38">
                         </el-table-column>
                         <el-table-column
-                                prop="stuId"
-                                label="学号"
+                                prop="title"
+                                label="标题"
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="stuName"
-                                label="姓名"
+                                prop="resourceType"
+                                label="资源类型"
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="stuIdentityId"
-                                label="身份证"
+                                prop="resourceStandard"
+                                label="资源标准"
                                 width="160">
                         </el-table-column>
                         <el-table-column
-                                prop="stuSex"
-                                label="性别"
+                                prop="auditState"
+                                label="审核状态"
                                 width="50">
                         </el-table-column>
                         <el-table-column
-                                prop="stuEnrollmentDate"
-                                label="入学日期"
+                                prop="subjectMap"
+                                label="学科"
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="stuMajor"
-                                label="专业"
+                                prop="map"
+                                label="资源路径"
                                 width="180">
                         </el-table-column>
                         <el-table-column
-                                prop="stuClass"
-                                label="班级"
+                                prop="stick"
+                                label="置顶"
                                 width="150">
                         </el-table-column>
                         <el-table-column
-                                prop="stuSchoolingLength"
-                                label="学制"
+                                prop="allowDownload"
+                                label="允许下载"
                                 width="50">
                         </el-table-column>
                         <el-table-column
-                                prop="stuAddress"
-                                label="地址"
-                                width="200">
-                        </el-table-column>
-                        <el-table-column
-                                prop="stuNationality"
-                                label="民族"
-                                width="50">
-                        </el-table-column>
-                        <el-table-column
-                                prop="stuStatus"
-                                label="状态"
+                                prop="createUid"
+                                label="创建时间"
                         >
                         </el-table-column>
                         <el-table-column
@@ -151,7 +142,7 @@
                 </el-row>
             </div>
         </div>
-        <UploadResourceDialog v-if="uploadResourceDialogShow">
+        <UploadResourceDialog :bindId="bindId" :dict="dict" :subjects="subjects" :checkedNode="checkedNode" :visible.sync="uploadResourceDialogShow">
 
         </UploadResourceDialog>
 
@@ -163,12 +154,14 @@
     import UploadResourceDialog from '_cmp/dialog/UploadResourceDialog';
     import * as DICT_API from '_api/api_dict';
     import * as SUBJECT_API from '_api/api_subject';
+    import * as RESOURCE_API from '_api/api_resource';
 
     export default {
         name: "HomeBaseHome",
         components: {CmpTree,UploadResourceDialog},
         data() {
             return {
+                checkedNode:null,
                 uploadResourceDialogShow:false,
                 subjects: [],
                 searchObj: {
@@ -204,6 +197,15 @@
                 this.$http.post(SUBJECT_API.selectAll,null,this).then((res)=>{
                     this.subjects = res.data;
                 })
+                this.getResourcesByPage();
+            },
+            getResourcesByPage(){
+                let page = {page:1,pageSize:50};
+                this.$http.post(RESOURCE_API.getListByPage,page,this).then((res)=>{
+                    console.log(res);
+                    this.tableData = res.data;
+                    this.total = res.extend.total;
+                })
             },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
@@ -214,7 +216,8 @@
             handleSelectionChange(){
 
             },
-            handleNodeClick(data, bindId) {
+            handleNodeClick(data, bindId,map) {
+                this.checkedNode = data;
                 console.log(data, bindId);
             },
             search(){
