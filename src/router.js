@@ -34,6 +34,10 @@ const ResourceAuth = () => import(/* webpackChunkName: "group-enrollment" */ './
 // 首页-资源管理-上传资源
 const ResourceUpload = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceUpload.vue');
 
+// 首页-资源管理-添加课程
+const ResourceAddCourse = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceAddCourse.vue');
+
+
 // 首页-数据中心
 const DataCenter = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter.vue');
 // 首页-数据中心-首页
@@ -75,6 +79,11 @@ export default new Router({
                             path: 'upload',
                             name: [{name: '教学资源', path: '/resource'}, {name: '上传资源', path: '/resource/upload'}],
                             component: ResourceUpload
+                        },
+                        {
+                            path: 'course',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '备课管理', path: '/resource/course'}],
+                            component: ResourceAddCourse
                         }
                     ]
                 },

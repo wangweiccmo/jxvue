@@ -29,10 +29,9 @@
                     <el-submenu index="3">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>资源集中管理</span>
+                            <span>备课管理</span>
                         </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="/resource/course">创建课程</el-menu-item>
                     </el-submenu>
                     <el-submenu index="4">
                         <template slot="title">

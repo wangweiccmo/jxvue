@@ -20,43 +20,22 @@
                 <div>
                     <el-form :inline="true" size="mini" :model="searchObj" class="demo-form-inline"
                              style="margin-top: 30px">
-                        <el-form-item label-width="80px" label="资源标题">
-                            <el-input style="width: 193px" v-model="searchObj.title" placeholder="资源标题"></el-input>
+                        <el-form-item label-width="80px" label="课程号">
+                            <el-input style="width: 193px" v-model="searchObj.title" placeholder="课程号"></el-input>
                         </el-form-item>
-                        <el-form-item label-width="80px" label="资源类型">
-                            <el-select v-model="searchObj.resourceType" placeholder="资源类型">
-                                <el-option v-for="n in dict.resourceType" :key="n.id" :label="n.dictValue" :value="n.dictKey">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label-width="80px" label="资源标准">
-                            <el-select v-model="searchObj.resourceStandard" placeholder="资源类型">
-                                <el-option v-for="n in dict.resourceStandard" :key="n.id" :label="n.dictValue" :value="n.dictKey">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label-width="80px" label="学科">
-                            <el-cascader
-                                    :options="subjects"
-                                    :props="{label:'name',value:'code'}"
-                                    v-model="searchObj.subject">
-                            </el-cascader>
-                        </el-form-item>
-                        <el-form-item label-width="80px" label="审核状态">
-                            <el-select v-model="searchObj.auditState" placeholder="审核状态">
-                                <el-option v-for="n in dict.auditState" :key="n.id" :label="n.dictValue" :value="n.dictKey">
-                                </el-option>
-                            </el-select>
+                        <el-form-item label-width="80px" label="课程名称">
+                            <el-input style="width: 193px" v-model="searchObj.title" placeholder="课程名称"></el-input>
                             <el-button type="primary" style="margin: 0 50px" @click="search">查询</el-button>
                         </el-form-item>
+
 
                     </el-form>
                 </div>
                 <el-row style="padding: 10px">
-                    <el-button size="mini" type="primary" @click="uploadFile">上传文件</el-button>
-                    <el-button size="mini" type="primary">excel批量添加</el-button>
-                    <el-button size="mini" type="primary">模板下载</el-button>
-                    <el-button size="mini" type="danger">批量删除</el-button>
+                    <el-button size="mini" type="primary" @click="add">增加</el-button>
+                    <el-button size="mini" type="danger">修改</el-button>
+                    <el-button size="mini" type="primary" >启用</el-button>
+                    <el-button size="mini" type="primary">停用</el-button>
                 </el-row>
                 <div class="jx-flex1">
 
@@ -142,23 +121,23 @@
                 </el-row>
             </div>
         </div>
-        <UploadResourceDialog :bindId="bindId" :dict="dict" :subjects="subjects" :checkedNode="checkedNode" :visible.sync="uploadResourceDialogShow">
+        <AddCourseDialog :bindId="bindId" :dict="dict" :subjects="subjects" :checkedNode="checkedNode" :visible.sync="uploadResourceDialogShow">
 
-        </UploadResourceDialog>
+        </AddCourseDialog>
 
     </div>
 </template>
 
 <script>
     import CmpTree from '_cmp/CmpTree';
-    import UploadResourceDialog from '_cmp/dialog/UploadResourceDialog';
+    import AddCourseDialog from '_cmp/dialog/AddCourseDialog';
     import * as DICT_API from '_api/api_dict';
     import * as SUBJECT_API from '_api/api_subject';
     import * as RESOURCE_API from '_api/api_resource';
 
     export default {
         name: "HomeBaseHome",
-        components: {CmpTree,UploadResourceDialog},
+        components: {CmpTree,AddCourseDialog},
         data() {
             return {
                 checkedNode:null,
@@ -167,7 +146,7 @@
                 searchObj: {
                     subject:[]
                 },
-                bindId: 2,
+                bindId: 3,
                 currentPage: 1,
                 total:10,
                 tableData:[],
@@ -223,7 +202,7 @@
             search(){
                 console.log(this.searchObj);
             },
-            uploadFile(){
+            add(){
                 this.uploadResourceDialogShow = true;
             }
         }
