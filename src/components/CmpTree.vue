@@ -90,9 +90,7 @@
                                     getMap(selectNode.children);
                                 }
                             }
-
                         }
-
                     }
                     getMap(this.data);
                 }
