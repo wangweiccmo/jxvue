@@ -1,5 +1,5 @@
 <template>
-    <div class=" cmp-tree">
+    <div class=" cmp-tree" :style="{width:width}">
 
         <el-input
                 size="mini"
@@ -25,6 +25,10 @@
     export default {
         name: "CmpTree",
         props:{
+            width:{
+                type: String,
+                default: '200px'
+            },
             bindId:{
                 type: Number,
                 default: 1
@@ -49,15 +53,14 @@
             getTreeByBindId(){
                 let params = {bindId:this.bindId};
                 console.log("params:",params);
-                this.$http.post(TREE_API.selectByBindId,params,this).then((res)=>{
+                this.$http.post(TREE_API.getTreeByBindId,params,this).then((res)=>{
                     if(res.data){
-                        this.selectTree = res.data;
-                        this.data = JSON.parse(this.selectTree.map);
-                        console.log(this.data);
+                        this.data = res.data;
+                        // console.log(this.data);
                         let firstNode = this.data[0];
                         this.handleNodeClick(this.data[0],this.bindId);
                         this.$nextTick(()=>{
-                            this.$refs.tree2.setCurrentKey(firstNode);
+                            this.$refs.tree2.setCurrentKey(firstNode.id);
                         })
                     }
 
@@ -69,30 +72,38 @@
             },
             handleNodeClick(data) {
                 // 获取map文字
-                let ids = data.id.split('-');
+                let ids = data.pmap?data.pmap.split(','):null;
                 let map = '';
                 if(ids && ids.length){
                     let index = 0;
                     let maxIndex = ids.length;
                     let getMap=(list)=>{
                         if(index < maxIndex){
-                            let id = ids[index];
-                            let keyIndex = parseInt(id) - 1;
-                            let selectNode = list[keyIndex];
-                            index = index+1;
-                            if(selectNode){
-                                if(!map){
-                                    map = selectNode.label;
-                                }else{
-                                    map = map + " > " + selectNode.label;
-                                }
-                                if(selectNode.children && selectNode.children.length){
-                                    getMap(selectNode.children);
+                            let id =ids[index];
+                            let pitems = list.filter((item)=>item.id == id);
+                            if(pitems && pitems.length){
+                                let selectNode = pitems[0];
+                                index = index+1;
+                                if(selectNode){
+                                    if(!map){
+                                        map = selectNode.label;
+                                    }else{
+                                        map = map + " > " + selectNode.label;
+                                    }
+                                    if(selectNode.children && selectNode.children.length){
+                                        getMap(selectNode.children);
+                                    }
                                 }
                             }
+
                         }
                     }
                     getMap(this.data);
+                }
+                if(!map){
+                    map = data.label;
+                }else{
+                    map = map + " > " + data.label;
                 }
                 data.mapStr = map;
                 this.$emit('handleNodeClick',data,this.bindId,map);

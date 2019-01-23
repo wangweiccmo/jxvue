@@ -43,7 +43,11 @@ const DataCenter = () => import(/* webpackChunkName: "group-enrollment" */ './vi
 // 首页-数据中心-首页
 const DataCenterHome = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/Home.vue');
 // 首页-数据中心-分类结构
-const DataCenterDCTree = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTree.vue');
+const DCTree = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTree.vue');
+// 首页-数据中心-分类结构-Edit
+const DCTreeEdit = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTreeEdit.vue');
+// 首页-数据中心-分类结构-Show
+const DCTreeShow = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTreeShow.vue');
 
 Vue.use(Router);
 export default new Router({
@@ -122,7 +126,17 @@ export default new Router({
                         {
                             path: 'dcTree',
                             name: [{name: '数据中心', path: '/dataCenter'}, {name: '分类结构', path: '/dataCenter/dcTree'}],
-                            component: DataCenterDCTree
+                            component: DCTree
+                        },
+                        {
+                            path: 'dCTreeShow',
+                            name: [{name: '数据中心', path: '/dataCenter'}, {name: '分类结构', path: '/dataCenter/dcTree'}, {name: '查看', path: '/dataCenter/dCTreeShow'}],
+                            component: DCTreeShow
+                        },
+                        {
+                            path: 'dcTreeEdit',
+                            name: [{name: '数据中心', path: '/dataCenter'}, {name: '分类结构', path: '/dataCenter/dcTree'}, {name: '编辑', path: '/dataCenter/dcTreeEdit'}],
+                            component: DCTreeEdit
                         }
                     ]
                 },

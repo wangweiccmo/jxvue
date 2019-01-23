@@ -8,7 +8,6 @@
             </div>
         </div>
         <div style="text-align: left;padding: 10px 10px 0 10px">
-<!--on-success-->
             <!--on-error-->
             <div>excel文件上传学生信息</div>
             <el-upload
