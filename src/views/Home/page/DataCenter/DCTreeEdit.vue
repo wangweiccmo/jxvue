@@ -7,21 +7,21 @@
                 </el-breadcrumb>
             </div>
         </div>
-        <CmpTree :bindId="bindId">
+        <CmpTreeEdit :bindId="bindId" isEdit width="100%">
 
-        </CmpTree>
+        </CmpTreeEdit>
     </div>
 </template>
 
 <script>
     import * as TREE_API from '_api/api_tree';
-    import CmpTree from '_cmp/CmpTree';
+    import CmpTreeEdit from '_cmp/CmpTreeEdit';
 
     export default {
-        name: "DCTreeEdit",
+        name: "CmpTreeSet",
         mixins: [],
         components: {
-            CmpTree
+            CmpTreeEdit
         },
         data() {
 

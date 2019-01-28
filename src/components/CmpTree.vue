@@ -32,6 +32,10 @@
             bindId:{
                 type: Number,
                 default: 1
+            },
+            isEdit:{
+                type: Boolean,
+                default: false
             }
         },
         data() {
