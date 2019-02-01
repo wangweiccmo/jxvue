@@ -7,7 +7,6 @@
                 suffix-icon="el-icon-search"
                 v-model="filterText">
         </el-input>
-
         <el-tree style="margin-top: 10px"
                  :data="data"
                  node-key="id"
