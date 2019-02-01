@@ -12,6 +12,7 @@
                  :data="data"
                  node-key="id"
                  highlight-current
+                 :expand-on-click-node="false"
                  default-expand-all
                  :filter-node-method="filterNode"
                  ref="tree2"
@@ -55,17 +56,9 @@
         },
         methods: {
             getTreeByBindId(){
-                let params = {bindId:this.bindId};
-                console.log("params:",params);
-                this.$http.post(TREE_API.getTreeByBindId,params,this).then((res)=>{
+                this.$http.post(TREE_API.bindId + this.bindId,null,this).then((res)=>{
                     if(res.data){
                         this.data = res.data;
-                        // console.log(this.data);
-                        let firstNode = this.data[0];
-                        this.handleNodeClick(this.data[0],this.bindId);
-                        this.$nextTick(()=>{
-                            this.$refs.tree2.setCurrentKey(firstNode.id);
-                        })
                     }
 
                 })

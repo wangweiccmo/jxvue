@@ -1,19 +1,23 @@
 <template>
-    <CmpTreeSet>
+    <div>
+        <CmpTreeEdit :bindId="bindId" isEdit width="100%">
 
-    </CmpTreeSet>
+        </CmpTreeEdit>
+    </div>
 </template>
 
 <script>
-    import CmpTreeSet from '_cmp/CmpTreeSet';
+    import CmpTreeEdit from '_cmp/CmpTreeEdit';
 
     export default {
         name: "ResourceTreeSet",
         mixins: [],
-        components: {CmpTreeSet},
+        components: {
+            CmpTreeEdit
+        },
         data() {
             return {
-
+                bindId:2
             }
         },
         mounted(){

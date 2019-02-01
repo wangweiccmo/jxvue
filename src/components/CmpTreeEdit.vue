@@ -1,6 +1,6 @@
 <template>
     <div class=" cmp-tree" :style="{width:width}">
-
+        <el-button style="margin-left: 10px" size="mini" type="primary" @click.stop="append()">添加主节点</el-button>
         <el-tree style="margin-top: 10px"
                  :data="data"
                  node-key="id"
@@ -11,7 +11,7 @@
                  :render-content="renderContent"
                ></el-tree>
         <el-dialog
-                title="添加子节点"
+                title="添加节点"
                 :visible.sync="dialogVisible"
                 width="400px">
             <el-form :model="form"  ref="form">
@@ -73,7 +73,6 @@
                 this.$http.post(TREE_API.bindId + this.bindId,null,this).then((res)=>{
                     if(res.data){
                         this.data = res.data;
-                        // console.log(this.data);
                         let firstNode = this.data[0];
                     }
 
@@ -92,18 +91,36 @@
                 this.$refs.form.validate((valid) => {
                     if (valid) {
                         console.log(this.form);
-                        let params = {
-                            bindId:this.bindId,
-                            pmap:this.choNode.pmap?this.choNode.pmap+','+this.choNode.id:this.choNode.id,
-                            deep:this.choNode.deep + 1,
-                            hasCld:0,
-                            label:this.form.name,
-                            pid:this.choNode.id
-                        };
-                        console.log("params:",params);
+                        let params = null;
+                        if(!!this.choNode){
+                            params = {
+                                bindId:this.bindId,
+                                pmap:this.choNode.pmap?this.choNode.pmap+','+this.choNode.id:this.choNode.id,
+                                deep:this.choNode.deep + 1,
+                                hasCld:0,
+                                label:this.form.name,
+                                pid:this.choNode.id
+                            };
+                        }else{
+                            params = {
+                                bindId:this.bindId,
+                                pmap:'',
+                                deep:0,
+                                hasCld:0,
+                                label:this.form.name,
+                                pid:0
+                            };
+                        }
                         this.$http.post(TREE_API.addNode,params,this).then((res)=>{
                             if(res.data){
                                 // node入队
+                                if(!!this.choNode){
+                                    if(!this.choNode.children)this.choNode.children = [];
+                                    this.choNode.children.push(res.data);
+                                }else{
+                                    this.data.push(res.data);
+                                }
+
                             }
 
                         })
@@ -113,10 +130,20 @@
             },
 
             remove(node, data) {
-                const parent = node.parent;
-                const children = parent.data.children || parent.data;
-                const index = children.findIndex(d => d.id === data.id);
-                children.splice(index, 1);
+
+                if(data.children && data.children.length){
+                    alert('请先删除子节点！');
+                }else{
+
+                    this.$http.post(TREE_API.delNode+data.id,null,this).then((res)=>{
+                        const parent = node.parent;
+                        const children = parent.data.children || parent.data;
+                        const index = children.findIndex(d => d.id === data.id);
+                        children.splice(index, 1);
+
+                    })
+                }
+
             },
 
             renderContent(h, { node, data, store }) {

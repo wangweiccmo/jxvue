@@ -10,4 +10,5 @@ export const bindId = `${HOST}/tree/bindId/`;
 
 export const addNode = `${HOST}/tree/addNode`;
 export const upNode = `${HOST}/tree/upNode`;
-export const delNode = `${HOST}/tree/delNode`;
+// {id}
+export const delNode = `${HOST}/tree/delNode/`;

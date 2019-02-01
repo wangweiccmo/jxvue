@@ -71,13 +71,18 @@
             show(row){
                 console.log(row);
                 this.$router.push({
-                    path: '/dataCenter/dCTreeShow'
+                    path: '/dataCenter/dCTreeShow',
+                    query: {
+                        bindId: row.bindId
+                    }
                 });
             },
             edit(row){
-                console.log(row);
                 this.$router.push({
-                    path: '/dataCenter/dcTreeEdit'
+                    path: '/dataCenter/dcTreeEdit',
+                    query: {
+                        bindId: row.bindId
+                    }
                 });
             }
         }

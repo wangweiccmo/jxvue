@@ -10,33 +10,23 @@
                 </el-breadcrumb>
             </div>
         </div>
-        <div class="jx-box" style="height: 100%">
-            <CmpTree :bindId="bindId" @handleNodeClick="handleNodeClick">
-
-            </CmpTree>
-            <div class="jx-flex1" style="background-color: white;">
-                节点授权
-            </div>
-        </div>
+        首页
     </div>
 </template>
 
 <script>
-    import CmpTree from '_cmp/CmpTree';
+
     export default {
         name: "HomeBaseHome",
         components: {
-            CmpTree
         },
         data() {
             return {
-                bindId:2
+
             }
         },
         methods: {
-            handleNodeClick(data){
-                console.log(data)
-            }
+
 
         }
     }

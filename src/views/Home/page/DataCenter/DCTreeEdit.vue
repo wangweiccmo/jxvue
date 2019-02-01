@@ -14,7 +14,6 @@
 </template>
 
 <script>
-    import * as TREE_API from '_api/api_tree';
     import CmpTreeEdit from '_cmp/CmpTreeEdit';
 
     export default {
@@ -26,19 +25,14 @@
         data() {
 
             return {
-                bindId:3,
+                bindId:this.$route.query.bindId,
                 treeList:[]
             }
         },
         mounted(){
-            this.getList();
         },
         methods: {
-            getList(){
-                this.$http.post(TREE_API.selectAll,null,this).then((res)=>{
-                    this.treeList = res.data;
-                })
-            },
+
             show(row){
                 console.log(row);
             }
