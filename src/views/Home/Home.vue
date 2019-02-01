@@ -19,6 +19,7 @@
                     <el-menu-item index="3">教职工管理</el-menu-item>
                     <!--<el-menu-item index="4">机构管理</el-menu-item>-->
                     <el-menu-item index="5">教学资源</el-menu-item>
+                    <el-menu-item index="51">在线考试</el-menu-item>
                     <el-menu-item index="6">数据中心</el-menu-item>
                 </el-menu>
             </div>
@@ -65,8 +66,14 @@
                     case '2':
                         this.go('/base')
                         break;
+                    case '3':
+                        this.go('/teacher')
+                        break;
                     case '5':
                         this.go('/resource')
+                        break;
+                    case '51':
+                        this.go('/exam')
                         break;
                     case '6':
                         this.go('/dataCenter')

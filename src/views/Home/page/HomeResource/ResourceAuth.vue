@@ -14,8 +14,9 @@
             <CmpTree :bindId="bindId" @handleNodeClick="handleNodeClick">
 
             </CmpTree>
-            <div class="jx-flex1" style="background-color: white;">
-                节点授权
+            <div class="jx-flex1" style="background-color: white;text-align: left">
+               选中节点： {{choNode.mapStr}}
+               
             </div>
         </div>
     </div>
@@ -30,12 +31,13 @@
         },
         data() {
             return {
-                bindId:2
+                bindId:2,
+                choNode:{}
             }
         },
         methods: {
             handleNodeClick(data){
-                console.log(data)
+                this.choNode = data;
             }
 
         }

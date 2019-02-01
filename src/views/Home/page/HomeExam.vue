@@ -3,46 +3,37 @@
         <div class="hbase-left jx-box-shadow jx-box-column">
             <div style="height: 90px;text-align: center;padding-top: 10px">
                 <i class="iconfont icon-xuejiguanli" style="font-size: 50px;color: #3a8ee6"></i><br>
-                <span class="jx-font-14">学生管理</span>
+                <span class="jx-font-14">在线考试</span>
 
             </div>
-            <!--<div style="height: 60px;padding-top: 10px;">-->
-                <!--<el-dropdown trigger="click" @command="sysClick">-->
-                    <!--<el-button style="width:200px;text-align: left;border-radius: 0;border: 0">-->
-                        <!--切换系统<i class="el-icon-arrow-down el-icon&#45;&#45;right" style="float: right"></i>-->
-                    <!--</el-button>-->
-                    <!--<el-dropdown-menu slot="dropdown">-->
-                        <!--<el-dropdown-item command="1">学籍管理</el-dropdown-item>-->
-                        <!--<el-dropdown-item command="2">成绩系统</el-dropdown-item>-->
-                    <!--</el-dropdown-menu>-->
-                <!--</el-dropdown>-->
-            <!--</div>-->
+
             <div class="jx-flex1" style="overflow-y: auto">
                 <el-menu
                         @select="selectMenu"
                         default-active="2"
                         class="el-menu-vertical-demo">
-                    <el-menu-item index="/base">
+                    <el-menu-item index="/teacher">
                         <i class="el-icon-setting"></i>
                         <span slot="title">首页</span>
                     </el-menu-item>
-                    <el-submenu index="1">
+                    <el-submenu index="6">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>学籍管理</span>
+                            <span>在线考试</span>
                         </template>
-                        <el-menu-item index="/base/student-reg">学生注册</el-menu-item>
-                        <el-menu-item index="/base/student-report">学生报道</el-menu-item>
+                        <el-menu-item index="1-1">试题管理</el-menu-item>
+                        <el-menu-item index="1-2">组卷管理</el-menu-item>
+                        <el-menu-item index="1-2">试卷管理</el-menu-item>
+                        <el-menu-item index="1-2">教师阅卷</el-menu-item>
+                        <el-menu-item index="1-2">成绩管理</el-menu-item>
                     </el-submenu>
-                    <el-submenu index="2">
+                    <el-submenu index="7">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>就业管理</span>
+                            <span>分析</span>
                         </template>
-                        <el-menu-item index="1-1">学籍管理</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="1-1">成绩分析</el-menu-item>
                     </el-submenu>
-
                 </el-menu>
             </div>
         </div>

@@ -19,23 +19,38 @@ const HomeBaseStudentReg = () => import(/* webpackChunkName: "group-enrollment" 
 // 首页-校园基础应用-学生报道
 const HomeBaseStudentReport = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeBase/StudentReport.vue');
 
+// 首页-校园基础应用
+const TeacherBase = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeTeacher.vue');
+// 首页-校园基础应用-首页
+const TeacherBaseHome = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/TeacherBase/Home.vue');
+// 首页-校园基础应用-教师注册
+const TeacherReg = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/TeacherBase/TeacherReg.vue');
+
+
 // 首页-资源管理
 const HomeResource = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource.vue');
-
 // 首页-资源管理-首页
 const ResourceHome = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/Home.vue');
-
 // 首页-资源管理-树设置
 const ResourceTreeSet = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceTreeSet.vue');
-
 // 首页-资源管理-权限设置
 const ResourceAuth = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceAuth.vue');
 
 // 首页-资源管理-上传资源
 const ResourceUpload = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceUpload.vue');
 
+// 首页-资源管理-资源审核
+const ResourceApproval = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceApproval.vue');
+
+// 首页-资源管理-停用启用
+const ResourceStop = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceStop.vue');
+
+
 // 首页-资源管理-添加课程
 const ResourceAddCourse = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceAddCourse.vue');
+
+
+
 
 
 // 首页-数据中心
@@ -48,6 +63,14 @@ const DCTree = () => import(/* webpackChunkName: "group-enrollment" */ './views/
 const DCTreeEdit = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTreeEdit.vue');
 // 首页-数据中心-分类结构-Show
 const DCTreeShow = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTreeShow.vue');
+// 首页-数据中心-数据字典
+const DCExam = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCExam.vue');
+
+
+// 首页-在线考试
+const Exam = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeExam.vue');
+// 首页-在线考试
+const ExamHome = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeExam/Home.vue');
 
 Vue.use(Router);
 export default new Router({
@@ -85,9 +108,31 @@ export default new Router({
                             component: ResourceUpload
                         },
                         {
+                            path: 'approval',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '资源审核', path: '/resource/approval'}],
+                            component: ResourceApproval
+                        },
+                        {
+                            path: 'stop',
+                            name: [{name: '教学资源', path: '/resource'}, {name: '启用停用', path: '/resource/stop'}],
+                            component: ResourceStop
+                        },
+                        {
                             path: 'course',
                             name: [{name: '教学资源', path: '/resource'}, {name: '备课管理', path: '/resource/course'}],
                             component: ResourceAddCourse
+                        }
+                    ]
+                },
+                {
+                    path: 'exam',
+                    name: [{name: '在线考试', path: '/exam'}],
+                    component: Exam,
+                    children: [
+                        {
+                            path: '',
+                            name: [{name: '在线考试', path: '/exam'}, {name: '首页', path: '/exam'}],
+                            component: ExamHome
                         }
                     ]
                 },
@@ -114,6 +159,23 @@ export default new Router({
                     ]
                 },
                 {
+                    path: 'teacher',
+                    name: [{name: '教职工管理', path: '/teacher'}],
+                    component: TeacherBase,
+                    children: [
+                        {
+                            path: '',
+                            name: [{name: '教职工管理', path: '/teacher'}, {name: '首页', path: '/teacher'}],
+                            component: TeacherBaseHome
+                        },
+                        {
+                            path: 'teacher-reg',
+                            name: [{name: '教职工管理', path: '/teacher'}, {name: '教职工注册', path: '/teacher/teacher-reg'}],
+                            component: TeacherReg
+                        }
+                    ]
+                },
+                {
                     path: 'dataCenter',
                     name: [{name: '数据中心', path: '/dataCenter'}],
                     component: DataCenter,
@@ -130,12 +192,18 @@ export default new Router({
                         },
                         {
                             path: 'dCTreeShow',
-                            name: [{name: '数据中心', path: '/dataCenter'}, {name: '分类结构', path: '/dataCenter/dcTree'}, {name: '查看', path: '/dataCenter/dCTreeShow'}],
+                            name: [{name: '数据中心', path: '/dataCenter'}, {
+                                name: '分类结构',
+                                path: '/dataCenter/dcTree'
+                            }, {name: '查看', path: '/dataCenter/dCTreeShow'}],
                             component: DCTreeShow
                         },
                         {
                             path: 'dcTreeEdit',
-                            name: [{name: '数据中心', path: '/dataCenter'}, {name: '分类结构', path: '/dataCenter/dcTree'}, {name: '编辑', path: '/dataCenter/dcTreeEdit'}],
+                            name: [{name: '数据中心', path: '/dataCenter'}, {
+                                name: '分类结构',
+                                path: '/dataCenter/dcTree'
+                            }, {name: '编辑', path: '/dataCenter/dcTreeEdit'}],
                             component: DCTreeEdit
                         }
                     ]

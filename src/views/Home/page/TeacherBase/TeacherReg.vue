@@ -9,7 +9,7 @@
         </div>
         <div style="text-align: left;padding: 10px 10px 0 10px">
             <!--on-error-->
-            <div>excel文件上传学生信息</div>
+            <div>excel文件上传教职工信息</div>
             <el-upload
                     class="upload-demo"
                     ref="upload"
@@ -41,7 +41,7 @@
 
         </div>
         <el-row style="padding: 10px">
-            <el-button size="mini" type="primary">添加学生</el-button>
+            <el-button size="mini" @click.stop="addTea" type="primary">添加教职工</el-button>
             <el-button size="mini" type="primary">excel批量添加</el-button>
             <el-button size="mini" type="primary">模板下载</el-button>
             <el-button size="mini" type="danger">批量删除</el-button>
@@ -58,60 +58,64 @@
                     width="38">
             </el-table-column>
             <el-table-column
-                    prop="stuId"
-                    label="学号"
+                    prop="uid"
+                    label="关联id"
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="stuName"
-                    label="姓名"
+                    prop="sdId"
+                    label="任职部门"
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="stuIdentityId"
-                    label="身份证"
+                    prop="teaStaffNumber"
+                    label="职工号"
                     width="160">
             </el-table-column>
             <el-table-column
-                    prop="stuSex"
+                    prop="teaName"
+                    label="姓名"
+                    width="50">
+            </el-table-column>
+            <el-table-column
+                    prop="teaTel"
+                    label="电话"
+                    width="100">
+            </el-table-column>
+            <el-table-column
+                    prop="teaTelShot"
+                    label="短号"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="teaSex"
                     label="性别"
                     width="50">
             </el-table-column>
             <el-table-column
-                    prop="stuEnrollmentDate"
-                    :formatter="dateformatter"
-                    label="入学日期"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="stuMajor"
-                    label="专业"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="stuClass"
-                    label="班级"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="stuSchoolingLength"
-                    label="学制"
-                    width="50">
-            </el-table-column>
-            <el-table-column
-                    prop="stuAddress"
-                    label="地址"
+                    prop="teaIdNumber"
+                    label="身份证"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="stuNationality"
-                    label="民族"
+                    prop="teaEmail"
+                    label="邮箱"
                     width="50">
             </el-table-column>
             <el-table-column
-                    prop="stuStatus"
-                    label="状态"
+                    prop="teaIsTemporaryEmployee"
+                    label="是否外聘"
                     >
+            </el-table-column>
+            <el-table-column
+                    prop="teaIsPartTimer"
+                    label="是否是兼职人员"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="teaStatus"
+                    label="状态"
+            >
             </el-table-column>
             <el-table-column
                     fixed="right"
@@ -120,7 +124,7 @@
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                     <el-button type="text" size="small">编辑</el-button>
-                    <el-button type="text" size="small" style="color: red">删除</el-button>
+                    <el-button @click="del(scope.row)" type="text" size="small" style="color: red">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -136,20 +140,24 @@
                     :total="total">
             </el-pagination>
         </el-row>
-
+        <AddTeacherDialog v-if="AddTeacherDialogVisible" @onSubmit="regSubmit" :visible.sync="AddTeacherDialogVisible"></AddTeacherDialog>
     </div>
 </template>
 
 <script>
     import formatterMixin from '../../../../components/mixin/formatterMixin';
-    import {GET_STU_BY_PAGE} from '../../../../api/api_student';
+    import {GET_STU_BY_PAGE,DEL_BY_ID} from '_api/api_teacher';
+    import AddTeacherDialog from '_dialog/AddTeacherDialog.vue';
+
     export default {
         name: "HomeBaseStudentReg",
         mixins: [formatterMixin],
         components: {
+            AddTeacherDialog
         },
         data() {
             return {
+                AddTeacherDialogVisible:false,
                 multipleSelection:[],
                 dialogVisible: false,
                 fileList:[],
@@ -159,15 +167,27 @@
             }
         },
         mounted(){
-            this.getStus();
+            this.getList();
         },
         methods: {
-            getStus(){
+            addTea(){
+                this.AddTeacherDialogVisible = true;
+            },
+            regSubmit(){
+                console.log('regSubmit');
+                this.getList();
+            },
+            getList(){
                 let page = {page:1,pageSize:50};
                 this.$http.post(GET_STU_BY_PAGE,page,this).then((res)=>{
                     console.log(res);
                     this.tableData = res.data;
                     this.total = res.extend.total;
+                })
+            },
+            del(row){
+                this.$http.post(DEL_BY_ID,{id:row.id},this).then((res)=>{
+                    this.getList();
                 })
             },
             handleSizeChange(val) {

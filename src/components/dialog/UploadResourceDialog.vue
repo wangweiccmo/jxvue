@@ -101,7 +101,7 @@
         },
         methods: {
             closed(){
-
+                this.$emit('update:visible',false)
             },
             upSuccess(){
                 this.$refs.upload.clearFiles();

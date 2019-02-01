@@ -29,33 +29,26 @@
                     <el-submenu index="3">
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>备课管理</span>
+                            <span>资源审核</span>
                         </template>
-                        <el-menu-item index="/resource/course">创建课程</el-menu-item>
+                        <el-menu-item index="/resource/approval">审批</el-menu-item>
+                        <el-menu-item index="/resource/stop">启用停用</el-menu-item>
                     </el-submenu>
                     <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>备课管理</span>
                         </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="/resource/course">创建课程</el-menu-item>
+                        <el-menu-item index="1-2">在线备课</el-menu-item>
+                        <el-menu-item index="1-2">个人空间</el-menu-item>
                     </el-submenu>
                     <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>在线教学</span>
                         </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="6">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>在线考试</span>
-                        </template>
-                        <el-menu-item index="1-1">学生报道</el-menu-item>
-                        <el-menu-item index="1-2">学生注册</el-menu-item>
+                        <el-menu-item index="1-1">在线教学</el-menu-item>
                     </el-submenu>
                     <el-submenu index="7">
                         <template slot="title">
