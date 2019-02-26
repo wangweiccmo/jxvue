@@ -27,8 +27,6 @@
                             <el-input style="width: 193px" v-model="searchObj.title" placeholder="课程名称"></el-input>
                             <el-button type="primary" style="margin: 0 50px" @click="search">查询</el-button>
                         </el-form-item>
-
-
                     </el-form>
                 </div>
                 <el-row style="padding: 10px">
@@ -38,7 +36,6 @@
                     <el-button size="mini" type="primary">停用</el-button>
                 </el-row>
                 <div class="jx-flex1">
-
                     <el-table
                             border
                             size="mini"
@@ -51,48 +48,49 @@
                                 width="38">
                         </el-table-column>
                         <el-table-column
-                                prop="title"
-                                label="标题"
+                                prop="id"
+                                label="id"
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="resourceType"
-                                label="资源类型"
+                                prop="code"
+                                label="课程号"
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="resourceStandard"
-                                label="资源标准"
+                                prop="name"
+                                label="课程名称"
                                 width="160">
                         </el-table-column>
                         <el-table-column
-                                prop="auditState"
-                                label="审核状态"
+                                prop="esName"
+                                label="英语名称"
                                 width="50">
                         </el-table-column>
                         <el-table-snpm
-                                prop="subjectMap"
-                                label="学科"
+                                prop="point"
+                                label="学分"
                                 width="100">
                         </el-table-snpm>
                         <el-table-column
-                                prop="map"
-                                label="资源路径"
+                                prop="time"
+                                label="学时"
                                 width="180">
                         </el-table-column>
                         <el-table-column
-                                prop="stick"
-                                label="置顶"
+                                prop="openUnit"
+                                label="开课单位"
                                 width="150">
                         </el-table-column>
                         <el-table-column
-                                prop="allowDownload"
-                                label="允许下载"
+                                prop="teachers"
+                                label="教师"
                                 width="50">
                         </el-table-column>
+
                         <el-table-column
-                                prop="createUid"
-                                label="创建时间"
+                                prop="status"
+                                label="状态"
                         >
                         </el-table-column>
                         <el-table-column
@@ -109,7 +107,6 @@
                 </div>
                 <el-row class="jx-tr">
                     <el-pagination
-
                             @size-change="handleSizeChange"
                             @current-change="handleCurrentChange"
                             :current-page="currentPage"
@@ -131,9 +128,7 @@
 <script>
     import CmpTree from '_cmp/CmpTree';
     import AddCourseDialog from '_cmp/dialog/AddCourseDialog';
-    import * as DICT_API from '_api/api_dict';
-    import * as SUBJECT_API from '_api/api_subject';
-    import * as RESOURCE_API from '_api/api_resource';
+    import * as API_COURSE from '_api/api_course';
 
     export default {
         name: "HomeBaseHome",
@@ -169,19 +164,11 @@
                         'auditState'
                     ]
                 };
-                this.$http.post(DICT_API.selectByTypes,params,this).then((res)=>{
-                   this.dict = res.data;
-                })
-                // 获取学科数组
-                this.$http.post(SUBJECT_API.selectAll,null,this).then((res)=>{
-                    this.subjects = res.data;
-                })
                 this.getResourcesByPage();
             },
             getResourcesByPage(){
                 let page = {page:1,pageSize:50};
-                this.$http.post(RESOURCE_API.getListByPage,page,this).then((res)=>{
-                    console.log(res);
+                this.$http.post(API_COURSE.selectByPage,page,this).then((res)=>{
                     this.tableData = res.data;
                     this.total = res.extend.total;
                 })
