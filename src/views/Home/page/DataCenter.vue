@@ -17,7 +17,7 @@
                             <span>基础数据</span>
                         </template>
                         <el-menu-item index="/dataCenter/dcTree">分类结构</el-menu-item>
-                        <!--<el-menu-item index="1-2">资源分类</el-menu-item>-->
+                        <el-menu-item index="/dataCenter/exam">数据字典</el-menu-item>
                     </el-submenu>
 
                 </el-menu>

@@ -38,20 +38,12 @@ const ResourceAuth = () => import(/* webpackChunkName: "group-enrollment" */ './
 
 // 首页-资源管理-上传资源
 const ResourceUpload = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceUpload.vue');
-
 // 首页-资源管理-资源审核
 const ResourceApproval = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceApproval.vue');
-
 // 首页-资源管理-停用启用
 const ResourceStop = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceStop.vue');
-
-
 // 首页-资源管理-添加课程
 const ResourceAddCourse = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeResource/ResourceAddCourse.vue');
-
-
-
-
 
 // 首页-数据中心
 const DataCenter = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter.vue');
@@ -65,7 +57,6 @@ const DCTreeEdit = () => import(/* webpackChunkName: "group-enrollment" */ './vi
 const DCTreeShow = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCTreeShow.vue');
 // 首页-数据中心-数据字典
 const DCExam = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/DataCenter/DCExam.vue');
-
 
 // 首页-在线考试
 const Exam = () => import(/* webpackChunkName: "group-enrollment" */ './views/Home/page/HomeExam.vue');
@@ -205,6 +196,11 @@ export default new Router({
                                 path: '/dataCenter/dcTree'
                             }, {name: '编辑', path: '/dataCenter/dcTreeEdit'}],
                             component: DCTreeEdit
+                        },
+                        {
+                            path: 'exam',
+                            name: [{name: '数据中心', path: '/dataCenter'}, {name: '数据字典',path: '/dataCenter/exam'}],
+                            component: DCExam
                         }
                     ]
                 },
